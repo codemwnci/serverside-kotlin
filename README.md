@@ -17,6 +17,41 @@ This repository is a work in progress. It does not cover all frameworks and appr
 Spring added formal support for Kotlin in Spring 5 and Spring Boot 2. Whilst it was possible to develop Kotlin apps before, these later versions added idiomatic Kotlin syntax to further reduce boilerplate and prevent workarounds required to make Kotlin play nicely with Spring. As a result, building Spring Boot apps in Kotlin is now super simple.
 
 
+```kotlin
+import org.springframework.boot.SpringApplication
+import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.web.bind.annotation.*
+import javax.servlet.http.HttpServletResponse
+
+@RestController
+@RequestMapping(value = "/")
+class MyController() {
+
+    @GetMapping(value = "/")
+    fun index() = "Hello World!"
+
+    @GetMapping(value = "/hello/{name}")
+    fun helloName(@PathVariable name: String) = "Hello {name}"
+
+
+    @PostMapping(value = "/someAPI")
+    fun postToAPI(@RequestBody body: String, res: HttpServletResponse): String {
+        res.status = 201
+        return "I created some resource using {body} honest!"
+    }
+
+    @DeleteMapping(value = "/someAPI/{id}")
+    fun deleteResource(@PathVariable id: Long) = "Pretend resource is gone"
+}
+
+@SpringBootApplication
+class BootdemoApplication
+
+fun main(args: Array<String>) {
+    SpringApplication.run(BootdemoApplication::class.java, *args)
+}
+```   
+
 ## SparkJava
 Spark Java is a micro framework, originally designed when Lambda's made it to Java 8, as a way to bring expressive web development to Java, inspired by Sinatra. Spark later enabled Kotlin, benefitting from Kotlin's syntax for allowing a final parameter lambda to be written as a body tag outside of the method call. Later, Spark began work on a Kotlin DSL, but this has largely been slow development and I will focus here on the Kotlin syntax over the original Java framework.
 
@@ -35,6 +70,7 @@ fun main(args: Array<String>) {
     delete("/someAPI/:id") { req, res -> "Pretend resource is gone" }
 }
 ```
+
 # Contributors
 - @codemwnci
 
