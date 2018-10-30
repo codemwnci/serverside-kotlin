@@ -94,7 +94,7 @@ fun main(args: Array<String>) {
     
     
 # Contributors
-- @codemwnci
+[@codemwnci](https://github.com/codemwnci)
 
 
 # Contribution Guidelines
