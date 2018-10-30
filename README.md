@@ -6,15 +6,15 @@ Kotlin is a comprehensive and expressive language that makes it easier to develo
 This repository is a work in progress. It does not cover all frameworks and approaches. If your favoured framework is missing, please feel free to add a pull request (Contribution Guidelines are at the bottom).
 
 ## Frameworks
-- Spring Boot
-- SparkJava (pending)
-- Jooby (pending)
+- Spring Boot (pending detailed example)
+- SparkJava (pending detailed example)
+- Jooby (pending detailed example)
 - Ktor (pending)
 - Vert.x (pending)
 
 
 ## Spring Boot
-Spring added formal support for Kotlin in Spring 5 and Spring Boot 2. Whilst it was possible to develop Kotlin apps before, these later versions added idiomatic Kotlin syntax to further reduce boilerplate and prevent workarounds required to make Kotlin play nicely with Spring. As a result, building Spring Boot apps in Kotlin is now super simple.
+[Spring](https://spring.io/) added formal support for Kotlin in [Spring 5 and SpringBoot 2](https://docs.spring.io/spring-boot/docs/2.1.0.RELEASE/reference/htmlsingle/#boot-features-kotlin). Whilst it was possible to develop Kotlin apps before, these later versions added idiomatic Kotlin syntax to further reduce boilerplate and prevent workarounds required to make Kotlin play nicely with Spring. As a result, building Spring Boot apps in Kotlin is now super simple.
 
 
 ```kotlin
@@ -48,12 +48,12 @@ class MyController() {
 class BootdemoApplication
 
 fun main(args: Array<String>) {
-    SpringApplication.run(BootdemoApplication::class.java, *args)
+    runApplication<BootdemoApplication>(*args)    
 }
 ```   
 
 ## SparkJava
-Spark Java is a micro framework, originally designed when Lambda's made it to Java 8, as a way to bring expressive web development to Java, inspired by Sinatra. Spark later enabled Kotlin, benefitting from Kotlin's syntax for allowing a final parameter lambda to be written as a body tag outside of the method call. Later, Spark began work on a Kotlin DSL, but this has largely been slow development and I will focus here on the Kotlin syntax over the original Java framework.
+[Spark Java](http://sparkjava.com/) is a micro framework, originally designed when Lambda's made it to Java 8, as a way to bring expressive web development to Java, inspired by Sinatra. Spark later enabled Kotlin, benefitting from Kotlin's syntax for allowing a final parameter lambda to be written as a body tag outside of the method call. Later, Spark began work on a Kotlin DSL, but this has largely been slow development and I will focus here on the Kotlin syntax over the original Java framework.
 
 ```kotlin
 import spark.Spark.*
@@ -62,7 +62,7 @@ fun main(args: Array<String>) {
     port(8080)
 
     get("/") { req, res -> "Hello Kotlin!" }
-    get("/hello/:name") { req, res -> "Hello: " + req.params(":name") }
+    get("/hello/:name") { req, res -> "Hello: ${req.params(":name")}" }
     post("/someAPI") { req, res -> 
         res.status(201)
         "I created some resource using ${req.body()} honest!" 
@@ -71,6 +71,28 @@ fun main(args: Array<String>) {
 }
 ```
 
+
+## Jooby
+[Jooby](https://jooby.org/) is another Java microframework that has been given a Kotlin module to benefit from the idioms of Kotlin to reduce boilerplate. Unfortunately, unlike SparkJava, the examples are very sparse (even the example on the Jooby site has a single get function as the example project). It does however have some nice features such as the use of implicits to reduce boilerplate further. 
+
+
+```kotlin
+import org.jooby.*
+
+fun main(args: Array<String>) {
+    run(*args) {
+        get("/") { "Hello Kotlin" }
+        get("/hello/:name") { "Hello: ${param("name").value}" }
+        post("/someAPI") { req, res ->
+            res.status(201)
+            res.send("I created some resource using ${req.body(String::class.java)} honest!")
+        }
+        delete("/someAPI/:id") { "Pretend resource is gone" }
+    }
+}
+```
+    
+    
 # Contributors
 - @codemwnci
 
