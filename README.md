@@ -28,6 +28,6 @@ To contribute a new framework, please follow these simple steps
 1. Create a new directory below this main one, with the name of the Framework. This should contain a full example, with a README.md acting as a tutorial
 1. Add the Framework name to the Frameworks list (second heading)
 1. Add a short code example of the framework on this README.md file, follow the Spring Boot section as an example. 
-1. Add a link from Frameworks the example created in step 3 to the directory in step 1
+1. Add a link from Frameworks List (Step 2) and the Example Section (Step 3) to the Example directory (Step 1)
 1. Add your name to the Contributors list on this README.md file
 
