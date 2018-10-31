@@ -41,7 +41,7 @@
             },
 
             addTodo: function(event) {
-                axios.post("/todo/", event.srcElement.value).then(response => {
+                axios.post("/todo/", event.srcElement.value, { headers: {'Content-Type': 'application/text'}}).then(response => {
                     this.todos.push(response.data);
                 });
                 event.srcElement.value = "";
