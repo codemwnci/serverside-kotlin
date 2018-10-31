@@ -1,15 +1,12 @@
 package codemwnci
 
-import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.runApplication
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.web.bind.annotation.*
 import javax.persistence.*
 import java.time.Instant
 
-
 @RestController @RequestMapping(value = "/todo")
-class TodoResources(val todoRepo: TodoReposiory) {
+class TodoResources(val todoRepo: TodoRepository) {
 
     @GetMapping(value = "/")
     fun getAllTodos() = todoRepo.findAll()
@@ -35,7 +32,7 @@ class TodoResources(val todoRepo: TodoReposiory) {
     }
 }
 
-interface TodoReposiory : JpaRepository<Todo, Long>
+interface TodoRepository : JpaRepository<Todo, Long>
 
 @Entity
 class Todo(@Id @GeneratedValue(strategy = GenerationType.AUTO)
@@ -43,4 +40,3 @@ class Todo(@Id @GeneratedValue(strategy = GenerationType.AUTO)
            var text: String = "",
            var done: Boolean = false,
            val createdAt: Instant = Instant.now())
-
