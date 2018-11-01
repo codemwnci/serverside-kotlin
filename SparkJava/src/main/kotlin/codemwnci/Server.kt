@@ -12,26 +12,25 @@ fun main(args: Array<String>) {
     port(9000)
     staticFileLocation("/public/")
 
+
+    data class Todo(val id: Long, val text: String, val done: Boolean, val createdAt: LocalDateTime)
+    val toTodo: (Row) -> Todo = { row -> Todo(row.long(1), row.string(2), row.boolean(3), row.localDateTime(4))}
+    fun getTodo(id: Long): Todo? = using(sessionOf(HikariCP.dataSource())) { session ->
+        session.run(queryOf("select id, text, done, created_at from todo where id=?", id).map(toTodo).asSingle)
+    }
+
+
     path("/todo/") {
-
-        data class Todo(val id: Long, val text: String, val done: Boolean, val createdAt: LocalDateTime)
-        val toTodo: (Row) -> Todo = { row -> Todo(row.long(1), row.string(2), row.boolean(3), row.localDateTime(4))}
-        fun getTodo(id: Long): Todo? = using(sessionOf(HikariCP.dataSource())) { session ->
-            session.run(queryOf("select id, text, done, created_at from todo where id=?", id).map(toTodo).asSingle)
-        }
-
 
         // get all todos from the database
         get("") { req, res ->
             val todos: List<Todo> = using(sessionOf(HikariCP.dataSource())) { session ->
                 session.run( queryOf("select id, text, done, created_at from todo").map(toTodo).asList )
             }
-            //jacksonObjectMapper().writeValueAsString(todos)
             todos.toJson()
         }
 
         get(":id") { req, res ->
-            //jacksonObjectMapper().writeValueAsString( getTodo(req.params("id").toLong()) )
             getTodo(req.params("id").toLong())?.toJson()
         }
 
@@ -44,7 +43,6 @@ fun main(args: Array<String>) {
             }
 
             if (id == null) internalServerError("there was a problem creating the Todo")
-            //else jacksonObjectMapper().writeValueAsString( getTodo(id) )
             else getTodo(id)?.toJson()
         }
 
@@ -60,7 +58,6 @@ fun main(args: Array<String>) {
                         .asUpdate)
             }
 
-            //if (rowsUpdated == 1) jacksonObjectMapper().writeValueAsString(getTodo(req.params("id").toLong()))
             if (rowsUpdated == 1) getTodo(req.params("id").toLong())?.toJson()
             else serverError("something went wrong")
         }
