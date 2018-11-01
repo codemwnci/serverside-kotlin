@@ -6,8 +6,8 @@ Kotlin is a comprehensive and expressive language that makes it easier to develo
 This repository is a work in progress. It does not cover all frameworks and approaches. If your favoured framework is missing, please feel free to add a pull request (Contribution Guidelines are at the bottom).
 
 ## Frameworks
-- [Spring Boot](/SpringBoot/) (pending detailed example)
-- [SparkJava](/SparkJava/) (pending detailed example)
+- [Spring Boot](/SpringBoot/)
+- [SparkJava](/SparkJava/)
 - Jooby (pending detailed example)
 - Ktor (pending)
 - Vert.x (pending)
