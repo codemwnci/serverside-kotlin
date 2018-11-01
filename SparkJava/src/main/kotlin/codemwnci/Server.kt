@@ -26,11 +26,13 @@ fun main(args: Array<String>) {
             val todos: List<Todo> = using(sessionOf(HikariCP.dataSource())) { session ->
                 session.run( queryOf("select id, text, done, created_at from todo").map(toTodo).asList )
             }
-            jacksonObjectMapper().writeValueAsString(todos)
+            //jacksonObjectMapper().writeValueAsString(todos)
+            todos.toJson()
         }
 
         get(":id") { req, res ->
-            jacksonObjectMapper().writeValueAsString( getTodo(req.params("id").toLong()) )
+            //jacksonObjectMapper().writeValueAsString( getTodo(req.params("id").toLong()) )
+            getTodo(req.params("id").toLong())?.toJson()
         }
 
         post("") { req, res ->
@@ -42,7 +44,8 @@ fun main(args: Array<String>) {
             }
 
             if (id == null) internalServerError("there was a problem creating the Todo")
-            else jacksonObjectMapper().writeValueAsString( getTodo(id) )
+            //else jacksonObjectMapper().writeValueAsString( getTodo(id) )
+            else getTodo(id)?.toJson()
         }
 
 
@@ -57,7 +60,8 @@ fun main(args: Array<String>) {
                         .asUpdate)
             }
 
-            if (rowsUpdated == 1) jacksonObjectMapper().writeValueAsString(getTodo(req.params("id").toLong()))
+            //if (rowsUpdated == 1) jacksonObjectMapper().writeValueAsString(getTodo(req.params("id").toLong()))
+            if (rowsUpdated == 1) getTodo(req.params("id").toLong())?.toJson()
             else serverError("something went wrong")
         }
 
@@ -76,7 +80,7 @@ fun main(args: Array<String>) {
 
 fun badRequest(reason: String) = halt(400, reason)
 fun serverError(reason: String) = halt(500, reason)
-
+fun Any.toJson() = jacksonObjectMapper().writeValueAsString(this)
 
 
 fun setupDB() {
