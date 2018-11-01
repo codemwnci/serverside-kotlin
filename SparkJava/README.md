@@ -89,11 +89,11 @@ From the SparkJava directory, first compile the code `mvn compile`, then run usi
 
 
 ## Test The REST API
-Go to http://localhost:8080 and use the provided front end. Enter a Todo in the text box and press enter. Done!
+Go to http://localhost:9000 and use the provided front end. Enter a Todo in the text box and press enter. Done!
 
 Alternatively, if you would rather use CURL
-- Create Todo: `curl -d "Hello" -H "Content-Type:application/text" http://localhost:8080/todo/`
-- Read Single Todo: `curl http://localhost:8080/todo/1` 
-- Update Todo: `curl -X PUT -d "{\"text\":\"Hello\",\"done\":true}" -H "Content-Type: application/json" http://localhost:8080/todo/1`
-- List Todo: `curl http://localhost:8080/todo/` 
-- Delete Todo: `curl -X DELETE http://localhost:8080/todo/1`
+- Create Todo: `curl -d "Hello" -H "Content-Type:application/text" http://localhost:9000/todo/`
+- Read Single Todo: `curl http://localhost:9000/todo/1` 
+- Update Todo: `curl -X PUT -d "{\"text\":\"Hello\",\"done\":true}" -H "Content-Type: application/json" http://localhost:9000/todo/1`
+- List Todo: `curl http://localhost:9000/todo/` 
+- Delete Todo: `curl -X DELETE http://localhost:9000/todo/1`
