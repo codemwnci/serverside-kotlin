@@ -1,5 +1,5 @@
 # Server Side Kotlin / Kotlin for Web Development
-The purporse of this repository is to host a set of comparisons, with examples, of the many ways that a developer can create Web Applications with Kotlin as the server side language. 
+The purpose of this repository is to host a set of comparisons, with examples, of the many ways that a developer can create Web Applications with Kotlin as the server side language. 
 
 Kotlin is a comprehensive and expressive language that makes it easier to develop than may other choices. However, it's fame has come from the Android community, and as such not enough attention has been given to serverside development, meaning that many developers are missing out on the boilerplate savings, simplicity and power of the Kotlin language.
 
@@ -11,6 +11,7 @@ This repository is a work in progress. It does not cover all frameworks and appr
 - Jooby (pending detailed example)
 - Ktor (pending)
 - Vert.x (pending)
+- Javalin.io (pending)
 
 
 ## Spring Boot
