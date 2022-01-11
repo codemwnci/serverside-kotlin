@@ -12,6 +12,8 @@ This repository is a work in progress. It does not cover all frameworks and appr
 - Ktor (pending)
 - Vert.x (pending)
 - Javalin.io (pending)
+- Micronaut.io
+- Quarkus.io
 
 
 ## Spring Boot
