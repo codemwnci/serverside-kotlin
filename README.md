@@ -8,12 +8,12 @@ This repository is a work in progress. It does not cover all frameworks and appr
 ## Frameworks
 - [Spring Boot](/SpringBoot/)
 - [SparkJava](/SparkJava/)
+- Quarkus.io (pending detailed example)
 - Jooby (pending detailed example)
 - Ktor (pending)
 - Vert.x (pending)
 - Javalin.io (pending)
 - Micronaut.io (pending)
-- Quarkus.io (pending)
 
 
 ## Spring Boot
@@ -73,6 +73,39 @@ fun main(args: Array<String>) {
     delete("/someAPI/:id") { req, res -> "Pretend resource is gone" }
 }
 ```
+
+## Quarkus
+[Quarkus](https://quarkus.io/) is another Java framework that has been given a Kotlin module (sound familiar yet!?). Quarkus is designed for Cloud Native, Containerised apps. It is not intended to run in a Main function like the other examples, but instead, uses Maven to execute `mvnw quarkus:dev`. When you are ready to compile, maven packages it up into a Jar and/or Container to run. It has super-fast startup times, and low memory requirements, but also comes with Native support via GraalVM, to give almost instantaneous boot times and even lower memory needs. See the website for more details.
+The code itself is very straightforward, concise, yet powerful.
+
+```kotlin
+import javax.ws.rs.*
+import javax.ws.rs.core.MediaType
+import javax.ws.rs.core.Response;
+
+@Path("/hello")
+class HelloResource {
+
+    data class Greeting(val message: String = "Hello Kotlin!")
+
+    @GET @Produces(MediaType.APPLICATION_JSON)
+    fun hello() = Greeting()
+    
+    @GET @Path("/{name}")
+    fun hello(@PathParam("name") name: String) = Greeting("Hello $name!")
+    
+    @POST @Produces(MediaType.TEXT_PLAIN)
+    fun addOne(body: String) = Response.ok("I created some resource using $body honest!").status(201).build()
+
+    @DELETE @Path("/{id}")
+    fun deleteOne(@PathParam("id") id: Long): String {
+        // do some DB work to delete the resource
+        return "pretend resource is gone"
+    }
+}
+
+```
+
 
 
 ## Jooby
