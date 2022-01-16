@@ -92,13 +92,13 @@ class HelloResource {
     fun hello() = Greeting()
     
     @GET @Path("/{name}")
-    fun hello(@PathParam("name") name: String) = Greeting("Hello $name!")
+    fun helloName(@PathParam("name") name: String) = Greeting("Hello $name!")
     
     @POST @Produces(MediaType.TEXT_PLAIN)
-    fun addOne(body: String) = Response.ok("I created some resource using $body honest!").status(201).build()
+    fun postToAPI(body: String) = Response.ok("I created some resource using $body honest!").status(201).build()
 
     @DELETE @Path("/{id}")
-    fun deleteOne(@PathParam("id") id: Long): String {
+    fun deleteResource(@PathParam("id") id: Long): String {
         // do some DB work to delete the resource
         return "pretend resource is gone"
     }
