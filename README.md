@@ -12,7 +12,7 @@ This repository is a work in progress. It does not cover all frameworks and appr
 - Jooby (pending detailed example)
 - Ktor (pending)
 - Vert.x (pending)
-- Javalin.io (pending)
+- Javalin.io (pending detailed example)
 - Micronaut.io (pending)
 
 
@@ -127,7 +127,42 @@ fun main(args: Array<String>) {
     }
 }
 ```
+
+## Javalin.io
+[Javalin.io](https://javalin.io/) unlike many of the frameworks described here, describes itself as a lightweight web framework for Java **and** Kotlin. It is super simple to set up, and very easy to get running. There are lots of similarities with Javalin and SparkJava, but Javalin seems to be more regularly updated, and more actively supported. It is very lightweight, but has a decent set of features for building REST endpoints.
+Whilst this example demonstrates sending text responses, it is also very simple to send JSON, futures, or rendered HTML.
+
+```kotlin
+import io.javalin.Javalin
+import io.javalin.apibuilder.ApiBuilder.*
+
+fun main() {
+    val app = Javalin.create().start(7000)
     
+    app.routes {
+        path("hello") {
+            get("/") { ctx ->
+                ctx.result("Hello Kotlin")
+            }
+
+            get("/{name}") { ctx ->
+                ctx.result("Hello ${ ctx.pathParam("name") }")
+            }
+
+            post("/") { ctx ->
+                ctx.status(201)
+                ctx.result("I created some resource using ${ctx.body()} honest!")
+            }
+
+            delete("/{id}") { ctx ->
+                // get resource using ctx.pathParam("id")
+                ctx.result("Pretend resource is gone")
+            }
+        }
+    }
+}
+```
+
     
 # Contributors
 [@codemwnci](https://github.com/codemwnci)
